@@ -72,7 +72,7 @@ class HomeView extends GetView<HomeController> {
                                             ),
                                           ),
                                           Text(
-                                            'Mengelola data koran langganan',
+                                            'Kelola data koran mitra kantor',
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 14,

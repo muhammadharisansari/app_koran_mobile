@@ -1,20 +1,11 @@
 import 'package:get/get.dart';
+import '../../../data/models/setoran_model.dart';
+import '../../../data/providers/setoran_provider.dart';
 
 class ListKoranMasukController extends GetxController {
-  //TODO: Implement ListKoranMasukController
+  SetoranProvider setProv = SetoranProvider();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  Future<List<Setoran>> getAllSetoran() async {
+    return await setProv.getAllSetoran();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }

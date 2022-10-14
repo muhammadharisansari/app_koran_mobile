@@ -84,4 +84,21 @@ class BaseURL {
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
   }
+
+  void addMitraKoran(namaMKoran) async {
+    final body = {
+      "koran": namaMKoran,
+    };
+
+    final response = await http.post(
+      Uri.parse(baseurl + '/koran'),
+      body: body,
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+    );
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+  }
 }

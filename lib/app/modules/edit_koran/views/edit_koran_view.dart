@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import '../../../data/models/setoran_model.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/edit_koran_controller.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:http/http.dart' as http;
@@ -13,10 +14,18 @@ class EditKoranView extends GetView<EditKoranController> {
   @override
   Widget build(BuildContext context) {
     controller.jumlahC.text = set.jumlah!;
-    // controller.dataTanggal.value = set.tanggal!;
-    // controller.namakoran.value = set.namaKoran!;
+    controller.nameOfKoran.value = set.namaKoran!;
+    controller.dataTanggal.value = set.tanggal!;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          // onPressed: () => Get.offAllNamed(Routes.LIST_KORAN_MASUK),
+          onPressed: () => Get.offNamed(
+            Routes.DETAIL_KORAN,
+            arguments: set,
+          ),
+          icon: Icon(Icons.arrow_back_ios),
+        ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
@@ -62,16 +71,7 @@ class EditKoranView extends GetView<EditKoranController> {
             () => Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  (controller.dataTanggal.value == '')
-                      ? set.tanggal!
-                      : DateFormat().add_yMd().format(
-                            DateTime.parse(controller.dataTanggal.string),
-                          ),
-                  style: TextStyle(fontSize: 15),
-                ),
-                IconButton(
-                  alignment: Alignment.centerRight,
+                TextButton(
                   onPressed: () {
                     showDatePicker(
                       context: context,
@@ -86,13 +86,46 @@ class EditKoranView extends GetView<EditKoranController> {
                           controller.dataTanggal.value = set.tanggal!;
                         }
                         // print(value);
-                        // print('---------');
-                        print(controller.dataTanggal.value);
                       },
                     );
                   },
-                  icon: Icon(Icons.date_range_rounded),
+                  child: Row(
+                    children: [
+                      Text(
+                        (controller.dataTanggal.value == '')
+                            ? set.tanggal!
+                            : DateFormat().add_yMd().format(
+                                  DateTime.parse(controller.dataTanggal.string),
+                                ),
+                        style: TextStyle(fontSize: 15, color: Colors.black),
+                      ),
+                    ],
+                  ),
                 ),
+
+                // IconButton(
+                //   alignment: Alignment.centerRight,
+                //   onPressed: () {
+                //     showDatePicker(
+                //       context: context,
+                //       initialDate: DateTime.now(),
+                //       firstDate: DateTime(2010),
+                //       lastDate: DateTime(2110),
+                //     ).then(
+                //       (value) {
+                //         if (value != null) {
+                //           controller.dataTanggal.value = value.toString();
+                //         } else {
+                //           controller.dataTanggal.value = set.tanggal!;
+                //         }
+                //         // print(value);
+                //         // print('---------');
+                //         print(controller.dataTanggal.value);
+                //       },
+                //     );
+                //   },
+                //   icon: Icon(Icons.date_range_rounded),
+                // ),
               ],
             ),
           ),

@@ -33,8 +33,7 @@ class EditMitraKoranView extends GetView<EditMitraKoranController> {
               onPressed: () {
                 Get.defaultDialog(
                     title: 'Hapus data',
-                    content: Text(
-                        'Yakin ingin menghapus data : ${set.koran}?'),
+                    content: Text('Yakin ingin menghapus data : ${set.koran}?'),
                     onConfirm: () => controller.deleteMitraKoran(set.idKoran!),
                     onCancel: () => Get.back(),
                     confirmTextColor: Colors.green,
@@ -42,7 +41,8 @@ class EditMitraKoranView extends GetView<EditMitraKoranController> {
                     textConfirm: 'Yakin',
                     cancelTextColor: Colors.red,
                     textCancel: 'Batal');
-              }, icon: Icon(Icons.delete_forever_outlined))
+              },
+              icon: Icon(Icons.delete_forever_outlined))
         ],
       ),
       body: Padding(
