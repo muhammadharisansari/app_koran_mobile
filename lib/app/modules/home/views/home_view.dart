@@ -84,8 +84,12 @@ class HomeView extends GetView<HomeController> {
                                   ),
                                   Column(
                                     children: [
-                                      FlutterLogo(
-                                        size: 60,
+                                      Container(
+                                        width: 90,
+                                        height: 100,
+                                        child: Image.asset(
+                                          "assets/icon/logo_app.png",
+                                        ),
                                       ),
                                     ],
                                   ),

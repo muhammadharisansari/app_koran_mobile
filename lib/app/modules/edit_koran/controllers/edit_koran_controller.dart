@@ -27,7 +27,7 @@ class EditKoranController extends GetxController {
         jumlahC.text == '') {
       Get.snackbar(
         'KESALAHAN',
-        'Semua form harus diisi.${nameOfKoran.value},${dataTanggal.value},${jumlahC.text}',
+        'Semua form harus diisi.',
         colorText: Colors.red,
         backgroundColor: Colors.white,
       );
@@ -36,7 +36,7 @@ class EditKoranController extends GetxController {
 
       Get.snackbar(
         'BERHASIL',
-        'Data koran berhasil diubah. ${nameOfKoran.value},${dataTanggal.value},${jumlahC.text}',
+        'Data koran berhasil diubah.',
         colorText: Colors.green,
         backgroundColor: Colors.white,
       );
