@@ -17,9 +17,9 @@ class DetailKoranView extends GetView<DetailKoranController> {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-              Colors.purpleAccent,
-              Colors.blue,
-              // Colors.greenAccent
+              Color.fromARGB(255, 55, 52, 245),
+              // Colors.purpleAccent,
+              Colors.lightBlueAccent,
             ], begin: Alignment.topLeft, end: Alignment.bottomRight),
           ),
         ),
@@ -82,7 +82,7 @@ class DetailKoranView extends GetView<DetailKoranController> {
                       "${snap.data!.namaKoran}",
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.purple,
+                        color: Colors.blue,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

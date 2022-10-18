@@ -15,9 +15,9 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-              Colors.purpleAccent,
-              Colors.blue,
-              // Colors.greenAccent
+              Color.fromARGB(255, 55, 52, 245),
+              // Colors.purpleAccent,
+              Colors.lightBlueAccent,
             ], begin: Alignment.topLeft, end: Alignment.bottomRight),
           ),
         ),
@@ -51,7 +51,7 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                       padding: EdgeInsets.all(15),
                       height: 100,
                       width: Get.width - (Get.width / 4),
-                      color: Colors.deepPurple[100],
+                      color: Colors.blue,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -61,26 +61,29 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                               Text(
                                 '${snapshot.data!.length}',
                                 style: TextStyle(
-                                    fontSize: 40, fontWeight: FontWeight.bold),
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
                               Text(
                                 'Setoran',
                                 style: TextStyle(
-                                  color: Colors.purple,
+                                  color: Colors.white,
                                 ),
                               ),
                             ],
                           ),
                           VerticalDivider(
                             thickness: 2,
-                            color: Colors.purple,
+                            color: Colors.white,
                           ),
                           IconButton(
                             onPressed: () {
                               Get.toNamed(Routes.TAMBAH_KORAN);
                             },
                             icon:
-                                Icon(Icons.add_box_sharp, color: Colors.purple),
+                                Icon(Icons.add_box_sharp, color: Colors.white),
                             iconSize: 60,
                           ),
                         ],

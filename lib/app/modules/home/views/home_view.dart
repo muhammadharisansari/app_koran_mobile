@@ -45,9 +45,9 @@ class HomeView extends GetView<HomeController> {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                   colors: [
-                                    Colors.purpleAccent,
-                                    Colors.blue,
-                                    // Colors.greenAccent
+                                    Color.fromARGB(255, 55, 52, 245),
+                                    // Colors.purpleAccent,
+                                    Colors.lightBlueAccent,
                                   ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight),
@@ -88,7 +88,7 @@ class HomeView extends GetView<HomeController> {
                                         width: 90,
                                         height: 100,
                                         child: Image.asset(
-                                          "assets/icon/logo_app.png",
+                                          "assets/icon/icon_app.png",
                                         ),
                                       ),
                                     ],
@@ -171,15 +171,16 @@ class HomeView extends GetView<HomeController> {
                                         Koran koran = snap.data![index];
                                         return Card(
                                           child: Container(
-                                            color: Colors.white,
+                                            color: Color.fromARGB(
+                                                255, 211, 250, 253),
                                             width: 140,
                                             child: Center(
                                                 child: Text(
                                               '${koran.koran}',
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color.fromARGB(
-                                                      255, 159, 74, 255)),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue,
+                                              ),
                                             )),
                                           ),
                                         );

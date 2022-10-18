@@ -15,9 +15,9 @@ class TambahKoranView extends GetView<TambahKoranController> {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-              Colors.purpleAccent,
-              Colors.blue,
-              // Colors.greenAccent
+              Color.fromARGB(255, 55, 52, 245),
+              // Colors.purpleAccent,
+              Colors.lightBlueAccent,
             ], begin: Alignment.topLeft, end: Alignment.bottomRight),
           ),
         ),

@@ -12,7 +12,7 @@ class TambahKoranController extends GetxController {
   BaseURL baseurl = BaseURL();
 
   void tambahKoran() async {
-    if (namakoran.value == '' ||
+    if (namakoran.value == '' || 
         dataTanggal.value == '' ||
         jumlahC.text == '') {
       Get.snackbar(
