@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:app_koran/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:get_storage/get_storage.dart';
 import '../../../../widgets/errConnect.dart';
 import '../../../data/models/koran_model.dart';
 import '../../../data/models/setoran_model.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+  final box = GetStorage();
   @override
   Future<void> refreshPage() async {
     Get.offAllNamed(Routes.HOME);
@@ -62,6 +63,8 @@ class HomeView extends GetView<HomeController> {
                                   Column(
                                     children: [
                                       Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'MITRA KORAN',
@@ -71,11 +74,13 @@ class HomeView extends GetView<HomeController> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
+                                          SizedBox(height: 24),
                                           Text(
-                                            'Kelola data koran mitra kantor',
+                                            'Selamat datang, ${box.read('name')}',
+                                            // 'Selamat datang, ...',
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 14,
+                                              fontSize: 16,
                                             ),
                                           ),
                                         ],
@@ -251,6 +256,26 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ),
                           ),
+                          ElevatedButton.icon(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color?>(
+                                Color.fromARGB(255, 255, 209, 209),
+                              ),
+                            ),
+                            onPressed: () {
+                              controller.logout();
+                            },
+                            icon: Icon(
+                              Icons.logout_outlined,
+                              color: Colors.red,
+                            ),
+                            label: Text(
+                              'Logout',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                          SizedBox(height: 20),
                         ],
                       ),
                       Positioned(

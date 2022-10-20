@@ -13,6 +13,7 @@ abstract class Routes {
   static const EDIT_MITRA_KORAN = _Paths.EDIT_MITRA_KORAN;
   static const TAMBAH_MITRA_KORAN = _Paths.TAMBAH_MITRA_KORAN;
   static const LIST_KORAN_MASUK = _Paths.LIST_KORAN_MASUK;
+  static const LOGIN = _Paths.LOGIN;
 }
 
 abstract class _Paths {
@@ -25,4 +26,5 @@ abstract class _Paths {
   static const EDIT_MITRA_KORAN = '/edit-mitra-koran';
   static const TAMBAH_MITRA_KORAN = '/tambah-mitra-koran';
   static const LIST_KORAN_MASUK = '/list-koran-masuk';
+  static const LOGIN = '/login';
 }

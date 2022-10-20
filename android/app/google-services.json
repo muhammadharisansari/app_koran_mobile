@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "498975591660",
+    "project_id": "app-koran-rh",
+    "storage_bucket": "app-koran-rh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498975591660:android:783fb4bf16ec44a2ba69c9",
+        "android_client_info": {
+          "package_name": "com.example.app_koran"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498975591660-mk8qtjuer4h7dhq1osdh6o04laag04o9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app_koran",
+            "certificate_hash": "5b204a6fdc1e76f49ae1349ff0f78b1986ad3bc2"
+          }
+        },
+        {
+          "client_id": "498975591660-h8i49etterv5c84e3t5b8pk3iqf1qr3a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWiCN8FUvpmROGwMER79BiRWAOUxVTf9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498975591660-h8i49etterv5c84e3t5b8pk3iqf1qr3a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

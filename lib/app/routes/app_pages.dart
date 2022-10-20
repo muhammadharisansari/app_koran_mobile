@@ -10,6 +10,8 @@ import 'package:app_koran/app/modules/home/bindings/home_binding.dart';
 import 'package:app_koran/app/modules/home/views/home_view.dart';
 import 'package:app_koran/app/modules/list_koran_masuk/bindings/list_koran_masuk_binding.dart';
 import 'package:app_koran/app/modules/list_koran_masuk/views/list_koran_masuk_view.dart';
+import 'package:app_koran/app/modules/login/bindings/login_binding.dart';
+import 'package:app_koran/app/modules/login/views/login_view.dart';
 import 'package:app_koran/app/modules/tambah_koran/bindings/tambah_koran_binding.dart';
 import 'package:app_koran/app/modules/tambah_koran/views/tambah_koran_view.dart';
 
@@ -65,6 +67,11 @@ class AppPages {
       name: _Paths.LIST_KORAN_MASUK,
       page: () => ListKoranMasukView(),
       binding: ListKoranMasukBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN,
+      page: () => LoginView(),
+      binding: LoginBinding(),
     ),
   ];
 }
