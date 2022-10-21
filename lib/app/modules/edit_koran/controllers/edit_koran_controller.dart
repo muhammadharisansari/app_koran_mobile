@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../data/models/koran_model.dart';
 import '../../../data/models/setoran_model.dart';
 import '../../../data/providers/setoran_provider.dart';
 import '../../../data/providers/urlMaster.dart';

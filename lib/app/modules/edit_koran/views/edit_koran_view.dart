@@ -102,30 +102,6 @@ class EditKoranView extends GetView<EditKoranController> {
                     ],
                   ),
                 ),
-
-                // IconButton(
-                //   alignment: Alignment.centerRight,
-                //   onPressed: () {
-                //     showDatePicker(
-                //       context: context,
-                //       initialDate: DateTime.now(),
-                //       firstDate: DateTime(2010),
-                //       lastDate: DateTime(2110),
-                //     ).then(
-                //       (value) {
-                //         if (value != null) {
-                //           controller.dataTanggal.value = value.toString();
-                //         } else {
-                //           controller.dataTanggal.value = set.tanggal!;
-                //         }
-                //         // print(value);
-                //         // print('---------');
-                //         print(controller.dataTanggal.value);
-                //       },
-                //     );
-                //   },
-                //   icon: Icon(Icons.date_range_rounded),
-                // ),
               ],
             ),
           ),

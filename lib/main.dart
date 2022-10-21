@@ -1,4 +1,3 @@
-import 'package:app_koran/widgets/errConnect.dart';
 import 'package:app_koran/widgets/errorPage.dart';
 import 'package:app_koran/widgets/loading_page.dart';
 import 'package:app_koran/widgets/splashScreen.dart';
@@ -16,7 +15,7 @@ void main() {
 class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
-  // LoginController loginC = Get.put(LoginController(), permanent: true);
+  LoginController loginC = Get.put(LoginController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +34,15 @@ class MyApp extends StatelessWidget {
                 return GetMaterialApp(
                   debugShowCheckedModeBanner: false,
                   title: "Data Koran",
-                  // initialRoute: AppPages.INITIAL,
-                  // initialRoute:
-                  //     loginC.isAuth.isFalse ? Routes.LOGIN : Routes.HOME,
-                  initialRoute: Routes.LOGIN,
+                  initialRoute:
+                      loginC.isAuth.isFalse ? Routes.LOGIN : Routes.HOME,
                   getPages: AppPages.routes,
                 );
               }
-              return splashScreen();
+              return FutureBuilder(
+                future: loginC.firstInitialized(),
+                builder: (context, snapshot) => splashScreen(),
+              );
             },
           );
         }

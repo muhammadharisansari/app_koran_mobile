@@ -22,7 +22,7 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
           ),
         ),
         leading: IconButton(
-          onPressed: () => Get.offAllNamed(Routes.HOME),
+          onPressed: () => Get.offNamed(Routes.HOME),
           icon: Icon(Icons.arrow_back_ios),
         ),
         title: Text('List Koran Masuk'),
@@ -97,8 +97,9 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: ((context, index) {
                     Setoran setoran = snapshot.data![index];
+                    print(setoran);
                     return ListTile(
-                      onTap: () => Get.offAllNamed(
+                      onTap: () => Get.offNamed(
                         Routes.DETAIL_KORAN,
                         arguments: setoran,
                       ),

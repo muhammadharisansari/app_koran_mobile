@@ -160,7 +160,7 @@ class DetailKoranView extends GetView<DetailKoranController> {
                     ElevatedButton(
                       onPressed: () => Get.toNamed(
                         Routes.EDIT_KORAN,
-                        arguments: setoran,
+                        arguments: snap.data!,
                       ),
                       child: Text('Edit Data'),
                     ),

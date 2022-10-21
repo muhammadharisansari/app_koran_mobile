@@ -11,10 +11,21 @@ class LoginController extends GetxController {
 
   final box = GetStorage();
 
-  Future<void> login() async {
-    await _googleSignIn.signOut();
-
+  Future<void> firstInitialized() async {
     try {
+      final isSignIn = await _googleSignIn.isSignedIn();
+
+      if (isSignIn) {
+        isAuth.value = true;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> login() async {
+    try {
+      await _googleSignIn.signOut();
       GoogleSignInAccount? _currentUser = await _googleSignIn.signIn();
 
       final isSignIn = await _googleSignIn.isSignedIn();
@@ -42,6 +53,8 @@ class LoginController extends GetxController {
             userCredential!.additionalUserInfo!.profile;
 
         box.write('name', '${Name!['name']}');
+        box.write('picture', '${Name['picture']}');
+        box.write('email', '${Name['email']}');
 
         Get.offAllNamed(Routes.HOME);
       } else {

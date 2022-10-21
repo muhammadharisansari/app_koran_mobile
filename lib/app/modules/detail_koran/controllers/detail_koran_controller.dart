@@ -22,6 +22,6 @@ class DetailKoranController extends GetxController {
       colorText: Colors.green,
       backgroundColor: Colors.white,
     );
-    Get.offAllNamed(Routes.HOME);
+    Get.offNamed(Routes.HOME);
   }
 }

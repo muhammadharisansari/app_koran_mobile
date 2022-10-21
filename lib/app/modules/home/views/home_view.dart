@@ -18,11 +18,53 @@ class HomeView extends GetView<HomeController> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        backgroundColor: Colors.blueAccent[50],
+        width: 220,
+        child: Container(
+          padding: EdgeInsets.only(top: 80, right: 20, left: 20),
+          alignment: Alignment.topCenter,
+          width: Get.width,
+          height: Get.height - 100,
+          child: Column(
+            children: [
+              CircleAvatar(
+                radius: 40,
+                backgroundImage: NetworkImage('${box.read('picture')}'),
+                backgroundColor: Colors.grey[350],
+              ),
+              SizedBox(height: 20),
+              Text('${box.read('name')}'),
+              SizedBox(height: 10),
+              Text('${box.read('email')}'),
+              SizedBox(height: 400),
+              ElevatedButton.icon(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color?>(
+                    Color.fromARGB(255, 255, 209, 209),
+                  ),
+                ),
+                onPressed: () {
+                  controller.logout();
+                },
+                icon: Icon(
+                  Icons.logout_outlined,
+                  color: Colors.red,
+                ),
+                label: Text(
+                  'Logout',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       backgroundColor: Colors.grey[50],
       body: RefreshIndicator(
         onRefresh: refreshPage,
-        child: FutureBuilder<List<Setoran>>(
-          future: controller.getAllSetoran(),
+        child: FutureBuilder<Iterable<Setoran>>(
+          future: controller.getWhereSetoran(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -31,9 +73,10 @@ class HomeView extends GetView<HomeController> {
               print('${snapshot.error}');
               return errConnect();
             }
-            if (snapshot.data?.length == 0) {
-              return const Center(child: Text('Tidak ada data.'));
-            } else {
+            // if (snapshot.data?.length == 0) {
+            //   return const Center(child: Text('Tidak ada data.'));
+            // }
+            else {
               return ListView(
                 children: [
                   Stack(
@@ -109,7 +152,7 @@ class HomeView extends GetView<HomeController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Nama Koran',
+                                  'Mitra Koran Terbaru',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -163,13 +206,15 @@ class HomeView extends GetView<HomeController> {
                                       ],
                                     );
                                   }
-                                  if (snap.data?.length == 0) {
-                                    return const Center(
-                                        child: Text('Tidak ada data.'));
-                                  } else {
+                                  // if (snap.data?.length == 0) {
+                                  //   return const Center(
+                                  //       child: Text('Tidak ada data.'));
+                                  // }
+                                  else {
                                     return ListView.builder(
                                       scrollDirection: Axis.horizontal,
-                                      itemCount: (snapshot.data!.length <= 4)
+                                      // itemCount: snap.data!.length,
+                                      itemCount: (snapshot.data!.length >= 4)
                                           ? snapshot.data!.length
                                           : 4,
                                       itemBuilder: (context, index) {
@@ -200,7 +245,7 @@ class HomeView extends GetView<HomeController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Daftar Koran Masuk',
+                                  'Koran Masuk Hari Ini',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -220,62 +265,44 @@ class HomeView extends GetView<HomeController> {
                               ],
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             width: Get.width,
-                            height: 250,
+                            height:
+                                Get.height * snapshot.data!.length / 10 + 10,
                             child: Card(
                               margin: EdgeInsets.only(
                                   left: 10, right: 10, bottom: 10),
                               child: ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
-                                itemCount: (snapshot.data!.length <= 3)
-                                    ? snapshot.data!.length
-                                    : 3,
+                                // itemCount milik setoran
+                                itemCount: snapshot.data!.length,
                                 itemBuilder: (context, index) {
-                                  Setoran setoran = snapshot.data![index];
+                                  List<Setoran> setoran =
+                                      snapshot.data!.toList();
+                                  Setoran data = setoran[index];
                                   return ListTile(
-                                    onTap: () => Get.offAllNamed(
+                                    onTap: () => Get.offNamed(
                                       Routes.DETAIL_KORAN,
-                                      arguments: setoran,
+                                      arguments: data,
                                     ),
                                     leading: CircleAvatar(
                                       // backgroundColor: Colors.white,
                                       child: Text(
-                                        "${setoran.jumlah}",
+                                        "${data.jumlah}",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 17,
                                         ),
                                       ),
                                     ),
-                                    title: Text('${setoran.namaKoran}'),
-                                    subtitle: Text('${setoran.tanggal}'),
-                                    trailing: Text('${setoran.bulan}'),
+                                    title: Text('${data.namaKoran}'),
+                                    subtitle: Text('${data.tanggal}'),
+                                    trailing: Text('${data.bulan}'),
                                   );
                                 },
                               ),
                             ),
                           ),
-                          ElevatedButton.icon(
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all<Color?>(
-                                Color.fromARGB(255, 255, 209, 209),
-                              ),
-                            ),
-                            onPressed: () {
-                              controller.logout();
-                            },
-                            icon: Icon(
-                              Icons.logout_outlined,
-                              color: Colors.red,
-                            ),
-                            label: Text(
-                              'Logout',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                          ),
-                          SizedBox(height: 20),
                         ],
                       ),
                       Positioned(
