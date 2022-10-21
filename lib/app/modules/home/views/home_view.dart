@@ -13,344 +13,354 @@ class HomeView extends GetView<HomeController> {
   final box = GetStorage();
   @override
   Future<void> refreshPage() async {
-    Get.offAllNamed(Routes.HOME);
+    // Get.offAllNamed(Routes.HOME);
+    controller.reload.value = true;
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        backgroundColor: Colors.blueAccent[50],
-        width: 220,
-        child: Container(
-          padding: EdgeInsets.only(top: 80, right: 20, left: 20),
-          alignment: Alignment.topCenter,
-          width: Get.width,
-          height: Get.height - 100,
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: 40,
-                backgroundImage: NetworkImage('${box.read('picture')}'),
-                backgroundColor: Colors.grey[350],
-              ),
-              SizedBox(height: 20),
-              Text('${box.read('name')}'),
-              SizedBox(height: 10),
-              Text('${box.read('email')}'),
-              SizedBox(height: 400),
-              ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color?>(
-                    Color.fromARGB(255, 255, 209, 209),
+    return Obx(
+      () => Scaffold(
+        drawer: Drawer(
+          backgroundColor: Colors.blueAccent[50],
+          width: 220,
+          child: Container(
+            padding: EdgeInsets.only(top: 80, right: 20, left: 20),
+            alignment: Alignment.topCenter,
+            width: Get.width,
+            height: Get.height - 100,
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 40,
+                  backgroundImage: NetworkImage('${box.read('picture')}'),
+                  backgroundColor: Colors.grey[350],
+                ),
+                SizedBox(height: 20),
+                Text('${box.read('name')}'),
+                SizedBox(height: 10),
+                Text('${box.read('email')}'),
+                SizedBox(height: 400),
+                ElevatedButton.icon(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color?>(
+                      Color.fromARGB(255, 255, 209, 209),
+                    ),
+                  ),
+                  onPressed: () {
+                    controller.logout();
+                  },
+                  icon: Icon(
+                    Icons.logout_outlined,
+                    color: Colors.red,
+                  ),
+                  label: Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.red),
                   ),
                 ),
-                onPressed: () {
-                  controller.logout();
-                },
-                icon: Icon(
-                  Icons.logout_outlined,
-                  color: Colors.red,
-                ),
-                label: Text(
-                  'Logout',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-      backgroundColor: Colors.grey[50],
-      body: RefreshIndicator(
-        onRefresh: refreshPage,
-        child: FutureBuilder<Iterable<Setoran>>(
-          future: controller.getWhereSetoran(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.error != null) {
-              print('${snapshot.error}');
-              return errConnect();
-            }
-            // if (snapshot.data?.length == 0) {
-            //   return const Center(child: Text('Tidak ada data.'));
-            // }
-            else {
-              return ListView(
-                children: [
-                  Stack(
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            width: Get.width,
-                            height: 170,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Color.fromARGB(255, 55, 52, 245),
-                                    // Colors.purpleAccent,
-                                    Colors.lightBlueAccent,
+        backgroundColor: Colors.grey[50],
+        body: RefreshIndicator(
+          onRefresh: () => refreshPage(),
+          child: FutureBuilder<Iterable<Setoran>>(
+            future: controller.reload.isTrue
+                ? controller.getWhereSetoran()
+                : controller.getWhereSetoran(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.error != null) {
+                print('${snapshot.error}');
+                return errConnect();
+              }
+              // if (snapshot.data?.length == 0) {
+              //   return const Center(child: Text('Tidak ada data.'));
+              // }
+              else {
+                return ListView(
+                  children: [
+                    Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              width: Get.width,
+                              height: 170,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromARGB(255, 55, 52, 245),
+                                      // Colors.purpleAccent,
+                                      Colors.lightBlueAccent,
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 16, left: 10, right: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'MITRA KORAN',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            SizedBox(height: 24),
+                                            Text(
+                                              'Selamat datang, ${box.read('name')}',
+                                              // 'Selamat datang, ...',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: 90,
+                                          height: 100,
+                                          child: Image.asset(
+                                            "assets/icon/icon_app.png",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight),
+                                ),
+                              ),
                             ),
-                            child: Padding(
+                            Padding(
                               padding: const EdgeInsets.only(
-                                  top: 16, left: 10, right: 10),
+                                  top: 60, right: 10, left: 10),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Column(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                  Text(
+                                    'Mitra Koran Terbaru',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Get.toNamed(Routes.LIST_KORAN),
+                                    child: Text(
+                                      'Lihat Semua',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue[300],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 10, right: 10),
+                              width: Get.width,
+                              height: 110,
+                              child: FutureBuilder<List<Koran>>(
+                                  future: controller.reload.isTrue
+                                      ? controller.getAllKoran()
+                                      : controller.getAllKoran(),
+                                  builder: (context, snap) {
+                                    if (snap.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Row(
                                         children: [
-                                          Text(
-                                            'MITRA KORAN',
-                                            style: TextStyle(
+                                          Card(
+                                            child: Container(
                                               color: Colors.white,
-                                              fontSize: 30,
-                                              fontWeight: FontWeight.bold,
+                                              width: 140,
+                                              child: Center(
+                                                  child: Text(
+                                                '...',
+                                              )),
                                             ),
                                           ),
-                                          SizedBox(height: 24),
-                                          Text(
-                                            'Selamat datang, ${box.read('name')}',
-                                            // 'Selamat datang, ...',
-                                            style: TextStyle(
+                                          Card(
+                                            child: Container(
                                               color: Colors.white,
-                                              fontSize: 16,
+                                              width: 140,
+                                              child: Center(
+                                                  child: Text(
+                                                '...',
+                                              )),
                                             ),
                                           ),
                                         ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        width: 90,
-                                        height: 100,
-                                        child: Image.asset(
-                                          "assets/icon/icon_app.png",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                      );
+                                    }
+                                    // if (snap.data?.length == 0) {
+                                    //   return const Center(
+                                    //       child: Text('Tidak ada data.'));
+                                    // }
+                                    else {
+                                      return ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        // itemCount: snap.data!.length,
+                                        itemCount: (snapshot.data!.length >= 4)
+                                            ? snapshot.data!.length
+                                            : 4,
+                                        itemBuilder: (context, index) {
+                                          Koran koran = snap.data![index];
+                                          return Card(
+                                            child: Container(
+                                              color: Color.fromARGB(
+                                                  255, 211, 250, 253),
+                                              width: 140,
+                                              child: Center(
+                                                  child: Text(
+                                                '${koran.koran}',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.blue,
+                                                ),
+                                              )),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    }
+                                  }),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 60, right: 10, left: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Mitra Koran Terbaru',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () =>
-                                      Get.toNamed(Routes.LIST_KORAN),
-                                  child: Text(
-                                    'Lihat Semua',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.blue[300],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 10, right: 10),
-                            width: Get.width,
-                            height: 110,
-                            child: FutureBuilder<List<Koran>>(
-                                future: controller.getAllKoran(),
-                                builder: (context, snap) {
-                                  if (snap.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Row(
-                                      children: [
-                                        Card(
-                                          child: Container(
-                                            color: Colors.white,
-                                            width: 140,
-                                            child: Center(
-                                                child: Text(
-                                              '...',
-                                            )),
-                                          ),
-                                        ),
-                                        Card(
-                                          child: Container(
-                                            color: Colors.white,
-                                            width: 140,
-                                            child: Center(
-                                                child: Text(
-                                              '...',
-                                            )),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  }
-                                  // if (snap.data?.length == 0) {
-                                  //   return const Center(
-                                  //       child: Text('Tidak ada data.'));
-                                  // }
-                                  else {
-                                    return ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      // itemCount: snap.data!.length,
-                                      itemCount: (snapshot.data!.length >= 4)
-                                          ? snapshot.data!.length
-                                          : 4,
-                                      itemBuilder: (context, index) {
-                                        Koran koran = snap.data![index];
-                                        return Card(
-                                          child: Container(
-                                            color: Color.fromARGB(
-                                                255, 211, 250, 253),
-                                            width: 140,
-                                            child: Center(
-                                                child: Text(
-                                              '${koran.koran}',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.blue,
-                                              ),
-                                            )),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }
-                                }),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10, left: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Koran Masuk Hari Ini',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () =>
-                                      Get.toNamed(Routes.LIST_KORAN_MASUK),
-                                  child: Text(
-                                    'Lihat Semua',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.blue[300],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: Get.width,
-                            height:
-                                Get.height * snapshot.data!.length / 10 + 10,
-                            child: Card(
-                              margin: EdgeInsets.only(
-                                  left: 10, right: 10, bottom: 10),
-                              child: ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                // itemCount milik setoran
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) {
-                                  List<Setoran> setoran =
-                                      snapshot.data!.toList();
-                                  Setoran data = setoran[index];
-                                  return ListTile(
-                                    onTap: () => Get.offNamed(
-                                      Routes.DETAIL_KORAN,
-                                      arguments: data,
-                                    ),
-                                    leading: CircleAvatar(
-                                      // backgroundColor: Colors.white,
-                                      child: Text(
-                                        "${data.jumlah}",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 17,
-                                        ),
-                                      ),
-                                    ),
-                                    title: Text('${data.namaKoran}'),
-                                    subtitle: Text('${data.tanggal}'),
-                                    trailing: Text('${data.bulan}'),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Positioned(
-                        left: Get.width / 20,
-                        right: Get.width / 20,
-                        top: 135,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            height: 70,
-                            width: 300,
-                            color: Colors.white,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 10, left: 10),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(
-                                    child: TextButton.icon(
-                                      onPressed: () =>
-                                          Get.toNamed(Routes.TAMBAH_KORAN),
-                                      icon: Icon(
-                                        Icons.add,
-                                      ),
-                                      label: Text(
-                                        'Koran Masuk',
+                                  Text(
+                                    'Koran Masuk Hari Ini (${snapshot.data!.length}x)',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Get.toNamed(Routes.LIST_KORAN_MASUK),
+                                    child: Text(
+                                      'Lihat Semua',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue[300],
                                       ),
                                     ),
                                   ),
-                                  VerticalDivider(thickness: 2),
-                                  Expanded(
-                                    child: TextButton.icon(
-                                        onPressed: () => Get.toNamed(
-                                            Routes.TAMBAH_MITRA_KORAN),
-                                        icon: Icon(Icons.add),
-                                        label: Text('Mitra Koran')),
-                                  ),
                                 ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: Get.width,
+                              height:
+                                  Get.height * snapshot.data!.length / 10 + 10,
+                              child: Card(
+                                margin: EdgeInsets.only(
+                                    left: 10, right: 10, bottom: 10),
+                                child: ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  // itemCount milik setoran
+                                  itemCount: snapshot.data!.length,
+                                  itemBuilder: (context, index) {
+                                    List<Setoran> setoran =
+                                        snapshot.data!.toList();
+                                    Setoran data = setoran[index];
+                                    return ListTile(
+                                      onTap: () => Get.offNamed(
+                                        Routes.DETAIL_KORAN,
+                                        arguments: data,
+                                      ),
+                                      leading: CircleAvatar(
+                                        // backgroundColor: Colors.white,
+                                        child: Text(
+                                          "${data.jumlah}",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 17,
+                                          ),
+                                        ),
+                                      ),
+                                      title: Text('${data.namaKoran}'),
+                                      subtitle: Text('${data.tanggal}'),
+                                      trailing: Text('${data.bulan}'),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Positioned(
+                          left: Get.width / 20,
+                          right: Get.width / 20,
+                          top: 135,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              height: 70,
+                              width: 300,
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextButton.icon(
+                                        onPressed: () =>
+                                            Get.toNamed(Routes.TAMBAH_KORAN),
+                                        icon: Icon(
+                                          Icons.add,
+                                        ),
+                                        label: Text(
+                                          'Koran Masuk',
+                                        ),
+                                      ),
+                                    ),
+                                    VerticalDivider(thickness: 2),
+                                    Expanded(
+                                      child: TextButton.icon(
+                                          onPressed: () => Get.toNamed(
+                                              Routes.TAMBAH_MITRA_KORAN),
+                                          icon: Icon(Icons.add),
+                                          label: Text('Mitra Koran')),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              );
-            }
-          },
+                      ],
+                    ),
+                  ],
+                );
+              }
+            },
+          ),
         ),
       ),
     );

@@ -12,6 +12,8 @@ class HomeController extends GetxController {
   GoogleSignIn _googleSignIn = GoogleSignIn();
   final box = GetStorage();
 
+  RxBool reload = false.obs;
+
   Future<Iterable<Setoran>> getWhereSetoran() async {
     final data = await setoranProv.getAllSetoran();
     String tahun = DateFormat().add_y().format(DateTime.now());
@@ -20,10 +22,19 @@ class HomeController extends GetxController {
 
     var hasil = data.where(
         (element) => element.tanggal!.contains('${tahun}-${bulan}-${tanggal}'));
+
+    if (reload.isTrue) {
+      reload.value = false;
+      return hasil;
+    }
     return hasil;
   }
 
   Future<List<Koran>> getAllKoran() async {
+    if (reload.isTrue) {
+      reload.value = false;
+      return await setoranProv.getAllKoran();
+    }
     return await setoranProv.getAllKoran();
   }
 
