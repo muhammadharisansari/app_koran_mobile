@@ -7,15 +7,9 @@ class ListKoranController extends GetxController {
   SetoranProvider setProv = SetoranProvider();
   RxBool reload = false.obs;
 
-  Future<void> refresh() async {
-    // reload.isTrue;
-    Get.offAllNamed(Routes.LIST_KORAN);
-  }
-
   Future<List<Koran>> getAllKoran() async {
     if (reload.isTrue) {
       reload.value = false;
-      return await setProv.getAllKoran();
     }
     return await setProv.getAllKoran();
   }

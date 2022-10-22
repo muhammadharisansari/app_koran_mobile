@@ -157,7 +157,7 @@ class HomeView extends GetView<HomeController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Mitra Koran Terbaru',
+                                    'Mitra Koran',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -220,16 +220,13 @@ class HomeView extends GetView<HomeController> {
                                     else {
                                       return ListView.builder(
                                         scrollDirection: Axis.horizontal,
-                                        // itemCount: snap.data!.length,
-                                        itemCount: (snapshot.data!.length >= 4)
-                                            ? snapshot.data!.length
-                                            : 4,
+                                        itemCount: snap.data!.length,
                                         itemBuilder: (context, index) {
                                           Koran koran = snap.data![index];
                                           return Card(
                                             child: Container(
                                               color: Color.fromARGB(
-                                                  255, 211, 250, 253),
+                                                  255, 227, 253, 255),
                                               width: 140,
                                               child: Center(
                                                   child: Text(
@@ -254,7 +251,7 @@ class HomeView extends GetView<HomeController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Koran Masuk Hari Ini (${snapshot.data!.length}x)',
+                                    'Daftar Koran Masuk',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -274,42 +271,85 @@ class HomeView extends GetView<HomeController> {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              width: Get.width,
-                              height:
-                                  Get.height * snapshot.data!.length / 10 + 10,
-                              child: Card(
-                                margin: EdgeInsets.only(
-                                    left: 10, right: 10, bottom: 10),
-                                child: ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  // itemCount milik setoran
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (context, index) {
-                                    List<Setoran> setoran =
-                                        snapshot.data!.toList();
-                                    Setoran data = setoran[index];
-                                    return ListTile(
-                                      onTap: () => Get.offNamed(
-                                        Routes.DETAIL_KORAN,
-                                        arguments: data,
-                                      ),
-                                      leading: CircleAvatar(
-                                        // backgroundColor: Colors.white,
-                                        child: Text(
-                                          "${data.jumlah}",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 10, left: 10),
+                              child: Column(
+                                children: [
+                                  Card(
+                                    color: Color.fromARGB(255, 24, 109, 238),
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          title: Text(
+                                            'Transaksi hari ini',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          trailing: Text(
+                                            '${snapshot.data!.length} transaksi',
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
                                         ),
-                                      ),
-                                      title: Text('${data.namaKoran}'),
-                                      subtitle: Text('${data.tanggal}'),
-                                      trailing: Text('${data.bulan}'),
-                                    );
-                                  },
-                                ),
+                                        ListTile(
+                                          title: Text(
+                                            'Koran hari ini',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          trailing: Text(
+                                            '${controller.sum.value} pcs',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: Get.width,
+                                    height: Get.height *
+                                            snapshot.data!.length /
+                                            10 +
+                                        40,
+                                    child: ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      // itemCount milik setoran
+                                      itemCount: snapshot.data!.length,
+                                      itemBuilder: (context, index) {
+                                        List<Setoran> setoran =
+                                            snapshot.data!.toList();
+                                        Setoran data = setoran[index];
+
+                                        return Card(
+                                          child: ListTile(
+                                            onTap: () => Get.toNamed(
+                                              Routes.DETAIL_KORAN,
+                                              arguments: data,
+                                            ),
+                                            leading: CircleAvatar(
+                                              // backgroundColor: Colors.white,
+                                              child: Text(
+                                                "${data.jumlah}",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 17,
+                                                ),
+                                              ),
+                                            ),
+                                            title: Text('${data.namaKoran}'),
+                                            subtitle: Text('${data.tanggal}'),
+                                            trailing: Text('${data.bulan}'),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
                               ),
                             ),
                           ],

@@ -28,7 +28,7 @@ class ListKoranView extends GetView<ListKoranController> {
             ),
           ),
           leading: IconButton(
-            onPressed: () => Get.offNamed(Routes.HOME),
+            onPressed: () => Get.offAllNamed(Routes.HOME),
             icon: Icon(Icons.arrow_back_ios),
           ),
           title: Text('Daftar Mitra Koran'),
@@ -108,7 +108,7 @@ class ListKoranView extends GetView<ListKoranController> {
                         itemBuilder: ((context, index) {
                           Koran koran = snapshot.data![index];
                           return ListTile(
-                              onTap: () => Get.offNamed(
+                              onTap: () => Get.toNamed(
                                     Routes.EDIT_MITRA_KORAN,
                                     arguments: koran,
                                   ),

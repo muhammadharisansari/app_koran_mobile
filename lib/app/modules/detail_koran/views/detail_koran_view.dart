@@ -24,7 +24,7 @@ class DetailKoranView extends GetView<DetailKoranController> {
           ),
         ),
         leading: IconButton(
-          onPressed: () => Get.offAllNamed(Routes.LIST_KORAN_MASUK),
+          onPressed: () => Get.offNamed(Routes.LIST_KORAN_MASUK),
           icon: Icon(Icons.arrow_back_ios),
         ),
         title: Text('Detail Koran'),

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/providers/urlMaster.dart';
 import '../../../routes/app_pages.dart';
+import 'package:get_storage/get_storage.dart';
 
 class TambahMitraKoranController extends GetxController {
   BaseURL baseurl = BaseURL();
+  final box = GetStorage();
 
   TextEditingController koranNameC = TextEditingController();
 
@@ -24,7 +26,7 @@ class TambahMitraKoranController extends GetxController {
         colorText: Colors.green,
         backgroundColor: Colors.white,
       );
-      Get.offAllNamed(Routes.LIST_KORAN);
+      Get.offNamed(Routes.LIST_KORAN);
     }
   }
 }

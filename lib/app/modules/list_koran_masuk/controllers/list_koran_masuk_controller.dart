@@ -10,7 +10,6 @@ class ListKoranMasukController extends GetxController {
   Future<List<Setoran>> getAllSetoran() async {
     if (reload.isTrue) {
       reload.value = false;
-      return await setProv.getAllSetoran();
     }
 
     return await setProv.getAllSetoran();

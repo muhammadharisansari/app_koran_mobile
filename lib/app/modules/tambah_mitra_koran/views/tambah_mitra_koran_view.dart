@@ -22,7 +22,7 @@ class TambahMitraKoranView extends GetView<TambahMitraKoranController> {
         title: Text('Tambah Mitra Koran'),
         centerTitle: true,
         leading: IconButton(
-          onPressed: () => Get.offAllNamed(Routes.LIST_KORAN),
+          onPressed: () => Get.offNamed(Routes.LIST_KORAN),
           icon: Icon(Icons.arrow_back_ios),
         ),
       ),

@@ -27,7 +27,7 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
             ),
           ),
           leading: IconButton(
-            onPressed: () => Get.offNamed(Routes.HOME),
+            onPressed: () => Get.offAllNamed(Routes.HOME),
             icon: Icon(Icons.arrow_back_ios),
           ),
           title: Text('List Koran Masuk'),

@@ -12,7 +12,7 @@ class TambahKoranController extends GetxController {
   BaseURL baseurl = BaseURL();
 
   void tambahKoran() async {
-    if (namakoran.value == '' || 
+    if (namakoran.value == '' ||
         dataTanggal.value == '' ||
         jumlahC.text == '') {
       Get.snackbar(
@@ -29,7 +29,7 @@ class TambahKoranController extends GetxController {
         colorText: Colors.green,
         backgroundColor: Colors.white,
       );
-      Get.offAllNamed(Routes.HOME);
+      Get.offNamed(Routes.LIST_KORAN_MASUK);
     }
   }
 }
