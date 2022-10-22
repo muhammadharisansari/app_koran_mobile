@@ -26,13 +26,10 @@ class HomeController extends GetxController {
 
     hasil.forEach((element) => sum += int.parse(element.jumlah!));
 
-    print(sum.value);
-
     if (reload.isTrue) {
       reload.value = false;
       sum.value = 0;
     }
-    //bila data dikurangi, jumlah menjadi bug
     return hasil;
   }
 
@@ -40,13 +37,11 @@ class HomeController extends GetxController {
     if (reload.isTrue) {
       reload.value = false;
     }
-
     return await setoranProv.getAllKoran();
   }
 
   Future<void> logout() async {
     box.remove('name');
-    box.remove('jumlah_koran');
     box.remove('picture');
     box.remove('email');
     _googleSignIn.signOut();

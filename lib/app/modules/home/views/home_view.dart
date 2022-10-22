@@ -13,7 +13,6 @@ class HomeView extends GetView<HomeController> {
   final box = GetStorage();
   @override
   Future<void> refreshPage() async {
-    // Get.offAllNamed(Routes.HOME);
     controller.reload.value = true;
   }
 
@@ -93,9 +92,9 @@ class HomeView extends GetView<HomeController> {
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     colors: [
-                                      Color.fromARGB(255, 55, 52, 245),
+                                      Color.fromARGB(255, 20, 16, 248),
                                       // Colors.purpleAccent,
-                                      Colors.lightBlueAccent,
+                                      Color.fromARGB(255, 115, 207, 250),
                                     ],
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight),
@@ -149,38 +148,10 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 60, right: 10, left: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Mitra Koran',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () =>
-                                        Get.toNamed(Routes.LIST_KORAN),
-                                    child: Text(
-                                      'Lihat Semua',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.blue[300],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                             Container(
                               padding: EdgeInsets.only(left: 10, right: 10),
                               width: Get.width,
-                              height: 110,
+                              height: 210,
                               child: FutureBuilder<List<Koran>>(
                                   future: controller.reload.isTrue
                                       ? controller.getAllKoran()
@@ -188,26 +159,93 @@ class HomeView extends GetView<HomeController> {
                                   builder: (context, snap) {
                                     if (snap.connectionState ==
                                         ConnectionState.waiting) {
-                                      return Row(
+                                      return Column(
                                         children: [
-                                          Card(
-                                            child: Container(
-                                              color: Colors.white,
-                                              width: 140,
-                                              child: Center(
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 60, right: 10, left: 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Mitra Koran (0)',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () => Get.toNamed(
+                                                      Routes.LIST_KORAN),
                                                   child: Text(
-                                                '...',
-                                              )),
+                                                    'Lihat Semua',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.blue[300],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          Card(
-                                            child: Container(
-                                              color: Colors.white,
-                                              width: 140,
-                                              child: Center(
-                                                  child: Text(
-                                                '...',
-                                              )),
+                                          SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Row(
+                                              children: [
+                                                Card(
+                                                  child: Container(
+                                                    color: Color.fromARGB(
+                                                        255, 227, 253, 255),
+                                                    width: 140,
+                                                    height: 80,
+                                                    child: Center(
+                                                        child: Text(
+                                                      '...',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )),
+                                                  ),
+                                                ),
+                                                Card(
+                                                  child: Container(
+                                                    color: Color.fromARGB(
+                                                        255, 227, 253, 255),
+                                                    width: 140,
+                                                    height: 80,
+                                                    child: Center(
+                                                        child: Text(
+                                                      '...',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )),
+                                                  ),
+                                                ),
+                                                Card(
+                                                  child: Container(
+                                                    color: Color.fromARGB(
+                                                        255, 227, 253, 255),
+                                                    width: 140,
+                                                    height: 80,
+                                                    child: Center(
+                                                        child: Text(
+                                                      '...',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -218,27 +256,64 @@ class HomeView extends GetView<HomeController> {
                                     //       child: Text('Tidak ada data.'));
                                     // }
                                     else {
-                                      return ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: snap.data!.length,
-                                        itemBuilder: (context, index) {
-                                          Koran koran = snap.data![index];
-                                          return Card(
-                                            child: Container(
-                                              color: Color.fromARGB(
-                                                  255, 227, 253, 255),
-                                              width: 140,
-                                              child: Center(
-                                                  child: Text(
-                                                '${koran.koran}',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.blue,
+                                      return Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 60, right: 10, left: 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Mitra Koran (${snap.data!.length})',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
-                                              )),
+                                                TextButton(
+                                                  onPressed: () => Get.toNamed(
+                                                      Routes.LIST_KORAN),
+                                                  child: Text(
+                                                    'Lihat Semua',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.blue[300],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          );
-                                        },
+                                          ),
+                                          Container(
+                                            height: 90,
+                                            child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: snap.data!.length,
+                                              itemBuilder: (context, index) {
+                                                Koran koran = snap.data![index];
+                                                return Card(
+                                                  child: Container(
+                                                    color: Color.fromARGB(
+                                                        255, 227, 253, 255),
+                                                    width: 140,
+                                                    child: Center(
+                                                        child: Text(
+                                                      '${koran.koran}',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
                                       );
                                     }
                                   }),
