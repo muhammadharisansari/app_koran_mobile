@@ -125,6 +125,11 @@ class ListKoranView extends GetView<ListKoranController> {
                 }
               }),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          tooltip: 'tambah',
+          child: Icon(Icons.add_a_photo_rounded),
+        ),
       ),
     );
   }
