@@ -58,42 +58,71 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
                           padding: EdgeInsets.all(15),
-                          height: 100,
-                          width: Get.width - (Get.width / 4),
+                          height: 150,
+                          width: Get.width - (Get.width / 6),
                           color: Colors.blue,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '${snapshot.data!.length}',
-                                    style: TextStyle(
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Setoran',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                'Periode tanggal',
+                                style: TextStyle(color: Colors.white),
                               ),
-                              VerticalDivider(
+                              // SizedBox(height: 5),
+                              Obx(() => Text(
+                                    '${controller.last}   s/d   ${controller.first}',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                              SizedBox(height: 4),
+                              Divider(
                                 thickness: 2,
                                 color: Colors.white,
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  Get.toNamed(Routes.TAMBAH_KORAN);
-                                },
-                                icon: Icon(Icons.add_box_sharp,
-                                    color: Colors.white),
-                                iconSize: 60,
+                              SizedBox(height: 4),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '${snapshot.data!.length}',
+                                        style: TextStyle(
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Setoran',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: 30),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '${controller.sum.value}',
+                                        style: TextStyle(
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        'PCS',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -113,9 +142,10 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                           ),
                           leading: CircleAvatar(
                             backgroundColor: Colors.lightBlue[100],
-                            child: Text('${setoran.jumlah} '),
+                            child: Text('${index + 1}'),
                           ),
-                          title: Text("${setoran.namaKoran}"),
+                          title:
+                              Text("${setoran.namaKoran} (${setoran.jumlah})"),
                           subtitle: Text("${setoran.tanggal}"),
                           trailing: Text("${setoran.bulan}"),
                         );
@@ -127,6 +157,10 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
             },
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () => Get.toNamed(Routes.TAMBAH_KORAN),
+            tooltip: "Tambah data",
+            child: Icon(Icons.add)),
       ),
     );
   }

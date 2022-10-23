@@ -38,7 +38,11 @@ class HomeView extends GetView<HomeController> {
                 Text('${box.read('name')}'),
                 SizedBox(height: 10),
                 Text('${box.read('email')}'),
-                SizedBox(height: 400),
+                SizedBox(height: 10),
+                Divider(
+                  thickness: 2,
+                ),
+                SizedBox(height: 360),
                 ElevatedButton.icon(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color?>(
@@ -352,31 +356,41 @@ class HomeView extends GetView<HomeController> {
                               child: Column(
                                 children: [
                                   Card(
-                                    color: Color.fromARGB(255, 24, 109, 238),
+                                    color: Color.fromARGB(255, 227, 253, 255),
                                     child: Column(
                                       children: [
                                         ListTile(
                                           title: Text(
                                             'Transaksi hari ini',
                                             style:
-                                                TextStyle(color: Colors.white),
+                                                TextStyle(color: Colors.blue),
                                           ),
                                           trailing: Text(
                                             '${snapshot.data!.length} transaksi',
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: TextStyle(
+                                                color: Colors.blue,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 15, right: 15),
+                                          child: Divider(
+                                            thickness: 1,
+                                            color: Colors.blue,
                                           ),
                                         ),
                                         ListTile(
                                           title: Text(
                                             'Koran hari ini',
                                             style:
-                                                TextStyle(color: Colors.white),
+                                                TextStyle(color: Colors.blue),
                                           ),
                                           trailing: Text(
                                             '${controller.sum.value} pcs',
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: TextStyle(
+                                                color: Colors.blue,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ],
@@ -406,14 +420,15 @@ class HomeView extends GetView<HomeController> {
                                             leading: CircleAvatar(
                                               // backgroundColor: Colors.white,
                                               child: Text(
-                                                "${data.jumlah}",
+                                                "${index + 1}",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 17,
                                                 ),
                                               ),
                                             ),
-                                            title: Text('${data.namaKoran}'),
+                                            title: Text(
+                                                '${data.namaKoran} (${data.jumlah})'),
                                             subtitle: Text('${data.tanggal}'),
                                             trailing: Text('${data.bulan}'),
                                           ),
