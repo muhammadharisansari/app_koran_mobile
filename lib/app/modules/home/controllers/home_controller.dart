@@ -13,6 +13,8 @@ class HomeController extends GetxController {
   final box = GetStorage();
   RxBool reload = false.obs;
   RxInt sum = 0.obs;
+  RxString awal = ''.obs;
+  RxString akhir = ''.obs;
 
   Future<Iterable<Setoran>> getWhereSetoran() async {
     sum.value = 0;
@@ -23,7 +25,6 @@ class HomeController extends GetxController {
 
     Iterable<Setoran> hasil = data.where(
         (element) => element.tanggal!.contains('${tahun}-${bulan}-${tanggal}'));
-
     hasil.forEach((element) => sum += int.parse(element.jumlah!));
 
     if (reload.isTrue) {

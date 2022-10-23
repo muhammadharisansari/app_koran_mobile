@@ -356,7 +356,7 @@ class HomeView extends GetView<HomeController> {
                               child: Column(
                                 children: [
                                   Card(
-                                    color: Color.fromARGB(255, 227, 253, 255),
+                                    color: Color.fromARGB(255, 234, 252, 255),
                                     child: Column(
                                       children: [
                                         ListTile(

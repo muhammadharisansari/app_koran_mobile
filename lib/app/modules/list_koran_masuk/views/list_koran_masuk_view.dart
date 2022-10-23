@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../widgets/errConnect.dart';
 import '../../../data/models/setoran_model.dart';
@@ -32,6 +33,23 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
           ),
           title: Text('List Koran Masuk'),
           centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.utc(2000),
+                  lastDate: DateTime.now(),
+                ).then((value) {
+                  if (value != null) {
+                    return controller.filterTanggal.value = value.toString();
+                  }
+                });
+              },
+              icon: Icon(Icons.filter_alt),
+            ),
+          ],
         ),
         body: RefreshIndicator(
           onRefresh: () => reload(),
@@ -64,14 +82,14 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                'Periode tanggal',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              // SizedBox(height: 5),
                               Obx(() => Text(
-                                    '${controller.last}   s/d   ${controller.first}',
-                                    style: TextStyle(color: Colors.white),
+                                    (controller.filterTanggal.value != '')
+                                        ? '${DateFormat('dd MMMM y').format(DateTime.parse(controller.filterTanggal.value))}'
+                                        : '${controller.last.value}   s/d   ${controller.first.value}',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   )),
                               SizedBox(height: 4),
                               Divider(
@@ -95,7 +113,7 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                                         ),
                                       ),
                                       Text(
-                                        'Setoran',
+                                        'Transaksi',
                                         style: TextStyle(
                                           color: Colors.white,
                                         ),
@@ -146,7 +164,8 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                           ),
                           title:
                               Text("${setoran.namaKoran} (${setoran.jumlah})"),
-                          subtitle: Text("${setoran.tanggal}"),
+                          subtitle: Text(
+                              "${DateFormat('dd-MM-y').format(DateTime.parse(setoran.tanggal!))}"),
                           trailing: Text("${setoran.bulan}"),
                         );
                       }),
@@ -157,10 +176,23 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
             },
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-            onPressed: () => Get.toNamed(Routes.TAMBAH_KORAN),
-            tooltip: "Tambah data",
-            child: Icon(Icons.add)),
+        floatingActionButton: (controller.filterTanggal.value == '')
+            ? FloatingActionButton(
+                onPressed: () => Get.toNamed(Routes.TAMBAH_KORAN),
+                tooltip: "Tambah data",
+                child: Icon(Icons.add))
+            : CircleAvatar(
+                backgroundColor: Colors.red,
+                child: IconButton(
+                  onPressed: () {
+                    controller.filterTanggal.value = '';
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
       ),
     );
   }
