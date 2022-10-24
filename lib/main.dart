@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'app/modules/login/controllers/login_controller.dart';
 import 'app/routes/app_pages.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +34,11 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return GetMaterialApp(
+                  localizationsDelegates: [
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    MonthYearPickerLocalizations.delegate,
+                  ],
                   debugShowCheckedModeBanner: false,
                   title: "Data Koran",
                   initialRoute:

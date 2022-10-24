@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
+import 'package:month_year_picker/month_year_picker.dart';
 import '../../../../widgets/errConnect.dart';
 import '../../../data/models/setoran_model.dart';
 import '../../../routes/app_pages.dart';
@@ -35,15 +35,17 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
           centerTitle: true,
           actions: [
             IconButton(
-              onPressed: () {
-                showDatePicker(
+              onPressed: () async {
+                await showMonthYearPicker(
                   context: context,
                   initialDate: DateTime.now(),
-                  firstDate: DateTime.utc(2000),
+                  firstDate: DateTime(2021),
                   lastDate: DateTime.now(),
+                  locale: Locale('ms'),
                 ).then((value) {
                   if (value != null) {
-                    return controller.filterTanggal.value = value.toString();
+                    // print(value);
+                    return controller.filterBulan.value = value.toString();
                   }
                 });
               },
@@ -78,13 +80,13 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                           padding: EdgeInsets.all(15),
                           height: 150,
                           width: Get.width - (Get.width / 6),
-                          color: Colors.blue,
+                          color: Colors.blueAccent,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Obx(() => Text(
-                                    (controller.filterTanggal.value != '')
-                                        ? '${DateFormat('dd MMMM y').format(DateTime.parse(controller.filterTanggal.value))}'
+                                    (controller.filterBulan.value != '')
+                                        ? '${DateFormat('MMMM y').format(DateTime.parse(controller.filterBulan.value))}'
                                         : '${controller.last.value}   s/d   ${controller.first.value}',
                                     style: TextStyle(
                                       color: Colors.white,
@@ -148,35 +150,86 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                       ),
                     ),
                     SizedBox(height: 20),
+                    //-------------------------baru
+                    ElevatedButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) {
+                              return Container(
+                                  width: Get.width,
+                                  height: 500,
+                                  child: ListView.builder(
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: ((context, index) {
+                                      Setoran setoran = snapshot.data![index];
+                                      return ListTile(
+                                        onTap: () => Get.offNamed(
+                                          Routes.DETAIL_KORAN,
+                                          arguments: setoran,
+                                        ),
+                                        leading: CircleAvatar(
+                                          backgroundColor:
+                                              Colors.lightBlue[100],
+                                          child: Text('${index + 1}'),
+                                        ),
+                                        title: Text(
+                                            "${setoran.namaKoran} (${setoran.jumlah})"),
+                                        subtitle: Text(
+                                            "${DateFormat('dd-MM-y').format(DateTime.parse(setoran.tanggal!))}"),
+                                        trailing: Text("${setoran.bulan}"),
+                                      );
+                                    }),
+                                  ));
+                            });
+                      },
+                      child: Text('Daftar koran masuk'),
+                    ),
+                    SizedBox(height: 10),
                     Expanded(
-                        child: ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: ((context, index) {
-                        Setoran setoran = snapshot.data![index];
-                        return ListTile(
-                          onTap: () => Get.offNamed(
-                            Routes.DETAIL_KORAN,
-                            arguments: setoran,
-                          ),
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.lightBlue[100],
-                            child: Text('${index + 1}'),
-                          ),
-                          title:
-                              Text("${setoran.namaKoran} (${setoran.jumlah})"),
-                          subtitle: Text(
-                              "${DateFormat('dd-MM-y').format(DateTime.parse(setoran.tanggal!))}"),
-                          trailing: Text("${setoran.bulan}"),
-                        );
-                      }),
-                    )),
+                      child: FutureBuilder<List<String>>(
+                        future: controller.totalKoran(),
+                        builder: (context, snaptotkor) {
+                          if (snaptotkor.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: SizedBox());
+                          } else {
+                            return ListView.builder(
+                              itemCount: snaptotkor.data!.length,
+                              itemBuilder: (context, index) {
+                                String unit = snaptotkor.data![index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20, right: 20),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                              '${controller.koranname[index]}'),
+                                          Text('${unit} pcs'),
+                                        ],
+                                      ),
+                                      Divider(thickness: 1)
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   ],
                 );
               }
             },
           ),
         ),
-        floatingActionButton: (controller.filterTanggal.value == '')
+        floatingActionButton: (controller.filterBulan.value == '')
             ? FloatingActionButton(
                 onPressed: () => Get.toNamed(Routes.TAMBAH_KORAN),
                 tooltip: "Tambah data",
@@ -185,7 +238,7 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                 backgroundColor: Colors.red,
                 child: IconButton(
                   onPressed: () {
-                    controller.filterTanggal.value = '';
+                    controller.filterBulan.value = '';
                   },
                   icon: Icon(
                     Icons.close,
