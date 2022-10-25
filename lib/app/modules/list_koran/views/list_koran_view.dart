@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../widgets/errConnect.dart';
 import '../../../data/models/koran_model.dart';
 import '../../../routes/app_pages.dart';
@@ -50,7 +51,9 @@ class ListKoranView extends GetView<ListKoranController> {
                   return errConnect();
                 }
                 if (snapshot.data?.length == 0) {
-                  return const Center(child: Text('Tidak ada data.'));
+                  return Center(
+                    child: Text('Tidak ada data.'),
+                  );
                 } else {
                   return Column(
                     children: [
@@ -125,13 +128,6 @@ class ListKoranView extends GetView<ListKoranController> {
                 }
               }),
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     Get.toNamed(Routes.TAMBAH_MITRA_KORAN);
-        //   },
-        //   tooltip: 'tambah',
-        //   child: Icon(Icons.add),
-        // ),
       ),
     );
   }

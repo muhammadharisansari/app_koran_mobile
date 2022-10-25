@@ -79,11 +79,7 @@ class HomeView extends GetView<HomeController> {
               if (snapshot.error != null) {
                 print('${snapshot.error}');
                 return errConnect();
-              }
-              // if (snapshot.data?.length == 0) {
-              //   return const Center(child: Text('Tidak ada data.'));
-              // }
-              else {
+              } else {
                 return ListView(
                   children: [
                     Stack(
@@ -162,7 +158,8 @@ class HomeView extends GetView<HomeController> {
                                       : controller.getAllKoran(),
                                   builder: (context, snap) {
                                     if (snap.connectionState ==
-                                        ConnectionState.waiting) {
+                                            ConnectionState.waiting ||
+                                        snap.data?.length == 0) {
                                       return Column(
                                         children: [
                                           Padding(
@@ -254,12 +251,7 @@ class HomeView extends GetView<HomeController> {
                                           ),
                                         ],
                                       );
-                                    }
-                                    // if (snap.data?.length == 0) {
-                                    //   return const Center(
-                                    //       child: Text('Tidak ada data.'));
-                                    // }
-                                    else {
+                                    } else {
                                       return Column(
                                         children: [
                                           Padding(
@@ -418,7 +410,6 @@ class HomeView extends GetView<HomeController> {
                                               arguments: data,
                                             ),
                                             leading: CircleAvatar(
-                                              // backgroundColor: Colors.white,
                                               child: Text(
                                                 "${index + 1}",
                                                 style: TextStyle(

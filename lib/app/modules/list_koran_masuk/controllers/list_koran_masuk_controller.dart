@@ -78,7 +78,6 @@ class ListKoranMasukController extends GetxController {
       }
 
       korantot.add(sumKoran.value.toString());
-      print('${koranname[i]} : ${sumKoran}');
     }
 
     return korantot;
