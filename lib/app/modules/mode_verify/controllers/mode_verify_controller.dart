@@ -9,6 +9,5 @@ class ModeVerifyController extends GetxController {
   final box = GetStorage();
   void refreshMode() {
     loginC.firstInitialized();
-    // Get.offAllNamed(Routes.HOME);
   }
 }

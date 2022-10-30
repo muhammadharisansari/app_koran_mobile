@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/koran_model.dart';
 
 class BaseURL {
+  final box = GetStorage();
   //untuk restful API localhost real device (nyalakan dengan gitbase)
   final baseurl = 'http://192.168.100.5:8080';
 
@@ -22,8 +24,7 @@ class BaseURL {
       "nama_koran": nama,
       "tanggal": tanggal,
       "jumlah": jumlah,
-      // "created_at": DateTime.now().toString(),
-      // "updated_at": '0',
+      "created_by": box.read('email')
     };
 
     final response = await http.post(
@@ -43,7 +44,7 @@ class BaseURL {
       "nama_koran": nama,
       "tanggal": tanggal,
       "jumlah": jumlah,
-      // "updated_at": DateTime.now().toString(),
+      "updated_by": box.read('email')
     };
 
     final response = await http.patch(
@@ -62,7 +63,8 @@ class BaseURL {
   void upMitraKoran(id, koran) async {
     final body = {
       "koran": koran,
-      "updated_at": DateTime.now().toString(),
+      "updated_by": box.read('email'),
+      // "updated_at": DateTime.now().toString(),
     };
 
     final response = await http.patch(
@@ -88,6 +90,7 @@ class BaseURL {
   void addMitraKoran(namaMKoran) async {
     final body = {
       "koran": namaMKoran,
+      "created_by": box.read('email'),
     };
 
     final response = await http.post(
