@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:app_koran/app/modules/create_pin/bindings/create_pin_binding.dart';
+import 'package:app_koran/app/modules/create_pin/views/create_pin_view.dart';
 import 'package:app_koran/app/modules/detail_koran/bindings/detail_koran_binding.dart';
 import 'package:app_koran/app/modules/detail_koran/views/detail_koran_view.dart';
 import 'package:app_koran/app/modules/edit_koran/bindings/edit_koran_binding.dart';
@@ -8,10 +10,14 @@ import 'package:app_koran/app/modules/edit_mitra_koran/bindings/edit_mitra_koran
 import 'package:app_koran/app/modules/edit_mitra_koran/views/edit_mitra_koran_view.dart';
 import 'package:app_koran/app/modules/home/bindings/home_binding.dart';
 import 'package:app_koran/app/modules/home/views/home_view.dart';
+import 'package:app_koran/app/modules/input_pin/bindings/input_pin_binding.dart';
+import 'package:app_koran/app/modules/input_pin/views/input_pin_view.dart';
 import 'package:app_koran/app/modules/list_koran_masuk/bindings/list_koran_masuk_binding.dart';
 import 'package:app_koran/app/modules/list_koran_masuk/views/list_koran_masuk_view.dart';
 import 'package:app_koran/app/modules/login/bindings/login_binding.dart';
 import 'package:app_koran/app/modules/login/views/login_view.dart';
+import 'package:app_koran/app/modules/mode_verify/bindings/mode_verify_binding.dart';
+import 'package:app_koran/app/modules/mode_verify/views/mode_verify_view.dart';
 import 'package:app_koran/app/modules/tambah_koran/bindings/tambah_koran_binding.dart';
 import 'package:app_koran/app/modules/tambah_koran/views/tambah_koran_view.dart';
 
@@ -72,6 +78,21 @@ class AppPages {
       name: _Paths.LOGIN,
       page: () => LoginView(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_PIN,
+      page: () => CreatePinView(),
+      binding: CreatePinBinding(),
+    ),
+    GetPage(
+      name: _Paths.INPUT_PIN,
+      page: () => InputPinView(),
+      binding: InputPinBinding(),
+    ),
+    GetPage(
+      name: _Paths.MODE_VERIFY,
+      page: () => ModeVerifyView(),
+      binding: ModeVerifyBinding(),
     ),
   ];
 }

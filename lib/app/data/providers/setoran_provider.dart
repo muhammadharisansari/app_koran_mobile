@@ -1,3 +1,4 @@
+import 'package:app_koran/app/data/models/userf_model.dart';
 import 'package:get/get.dart';
 
 import '../models/koran_model.dart';
@@ -22,7 +23,19 @@ class SetoranProvider extends GetConnect {
 
   Future<Setoran?> getKoran(id) async {
     final response = await get(baseurl + '/setoran/$id');
+    print(response.statusCode);
+    print(response.body["data"]);
     return Setoran.fromJson(response.body["data"]);
+  }
+
+  Future<List<Userf>> getUser(email) async {
+    final response = await get(baseurl + '/user/$email');
+    print(response.statusCode);
+    print(response.body["data"]);
+    // return Userf.fromJson(response.body['data']);
+    return (response.body['data'] as List)
+        .map((e) => Userf.fromJson(e))
+        .toList();
   }
 
   Future<List<Koran>> getAllKoran() async {

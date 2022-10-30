@@ -10,11 +10,17 @@ import 'package:get_storage/get_storage.dart';
 class HomeController extends GetxController {
   SetoranProvider setoranProv = SetoranProvider();
   GoogleSignIn _googleSignIn = GoogleSignIn();
+
   final box = GetStorage();
   RxBool reload = false.obs;
   RxInt sum = 0.obs;
   RxString awal = ''.obs;
   RxString akhir = ''.obs;
+
+  void resetPIN() {
+    box.remove('pin');
+    Get.offAllNamed(Routes.CREATE_PIN);
+  }
 
   Future<Iterable<Setoran>> getWhereSetoran() async {
     sum.value = 0;
@@ -42,6 +48,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> logout() async {
+    box.remove('pin');
     box.remove('name');
     box.remove('picture');
     box.remove('email');

@@ -101,4 +101,19 @@ class BaseURL {
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
   }
+
+  //USER
+  void addUser(email) async {
+    final body = {
+      'email': email,
+    };
+
+    final response =
+        await http.post(Uri.parse(baseurl + '/user'), body: body, headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded"
+    });
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+  }
 }

@@ -22,7 +22,7 @@ class Koran {
     return data;
   }
 
-  //modifikasi untuk getAllSetoran di file setoran_provider
+  //modifikasi untuk getAllKoran di file setoran_provider
   static List<Koran> fromJsonList(List? data) {
     if (data == null || data.length == 0) return [];
     return data.map((e) => Koran.fromJson(e)).toList();

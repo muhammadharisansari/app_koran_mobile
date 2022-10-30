@@ -8,6 +8,7 @@ import 'app/modules/login/controllers/login_controller.dart';
 import 'app/routes/app_pages.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:month_year_picker/month_year_picker.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   LoginController loginC = Get.put(LoginController(), permanent: true);
-
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -41,8 +42,13 @@ class MyApp extends StatelessWidget {
                   ],
                   debugShowCheckedModeBanner: false,
                   title: "Data Koran",
-                  initialRoute:
-                      loginC.isAuth.isFalse ? Routes.LOGIN : Routes.HOME,
+                  initialRoute: loginC.isAuth.isFalse
+                      ? Routes.LOGIN
+                      : loginC.isverify.isFalse
+                          ? Routes.MODE_VERIFY
+                          : box.read('pin') == null
+                              ? Routes.CREATE_PIN
+                              : Routes.INPUT_PIN,
                   getPages: AppPages.routes,
                 );
               }

@@ -23,10 +23,10 @@ class HomeView extends GetView<HomeController> {
           backgroundColor: Colors.blueAccent[50],
           width: 220,
           child: Container(
-            padding: EdgeInsets.only(top: 80, right: 20, left: 20),
+            padding: EdgeInsets.only(top: 80, right: 20, left: 20, bottom: 120),
             alignment: Alignment.topCenter,
             width: Get.width,
-            height: Get.height - 100,
+            height: Get.height - 250,
             child: Column(
               children: [
                 CircleAvatar(
@@ -42,11 +42,21 @@ class HomeView extends GetView<HomeController> {
                 Divider(
                   thickness: 2,
                 ),
-                SizedBox(height: 360),
+                SizedBox(height: 20),
+                TextButton(
+                  onPressed: () {
+                    controller.resetPIN();
+                  },
+                  child: Text(
+                    'Reset pin anda',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+                SizedBox(height: Get.height / 3),
                 ElevatedButton.icon(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color?>(
-                      Color.fromARGB(255, 255, 209, 209),
+                      Color.fromARGB(255, 255, 245, 245),
                     ),
                   ),
                   onPressed: () {
@@ -88,8 +98,12 @@ class HomeView extends GetView<HomeController> {
                           children: [
                             Container(
                               width: Get.width,
-                              height: 170,
+                              height: 180,
                               decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(60),
+                                  // bottomLeft: Radius.circular(40),
+                                ),
                                 gradient: LinearGradient(
                                     colors: [
                                       Color.fromARGB(255, 20, 16, 248),
@@ -101,7 +115,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 16, left: 10, right: 10),
+                                    top: 20, left: 10, right: 10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -198,7 +212,7 @@ class HomeView extends GetView<HomeController> {
                                                 Card(
                                                   child: Container(
                                                     color: Color.fromARGB(
-                                                        255, 227, 253, 255),
+                                                        255, 69, 181, 255),
                                                     width: 140,
                                                     height: 80,
                                                     child: Center(
@@ -207,7 +221,7 @@ class HomeView extends GetView<HomeController> {
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color: Colors.blue,
+                                                        color: Colors.white,
                                                       ),
                                                     )),
                                                   ),
@@ -215,7 +229,7 @@ class HomeView extends GetView<HomeController> {
                                                 Card(
                                                   child: Container(
                                                     color: Color.fromARGB(
-                                                        255, 227, 253, 255),
+                                                        255, 69, 181, 255),
                                                     width: 140,
                                                     height: 80,
                                                     child: Center(
@@ -224,7 +238,7 @@ class HomeView extends GetView<HomeController> {
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color: Colors.blue,
+                                                        color: Colors.white,
                                                       ),
                                                     )),
                                                   ),
@@ -232,7 +246,7 @@ class HomeView extends GetView<HomeController> {
                                                 Card(
                                                   child: Container(
                                                     color: Color.fromARGB(
-                                                        255, 227, 253, 255),
+                                                        255, 69, 181, 255),
                                                     width: 140,
                                                     height: 80,
                                                     child: Center(
@@ -241,7 +255,7 @@ class HomeView extends GetView<HomeController> {
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color: Colors.blue,
+                                                        color: Colors.white,
                                                       ),
                                                     )),
                                                   ),
@@ -291,9 +305,9 @@ class HomeView extends GetView<HomeController> {
                                               itemBuilder: (context, index) {
                                                 Koran koran = snap.data![index];
                                                 return Card(
+                                                  color: Color.fromARGB(
+                                                      255, 69, 181, 255),
                                                   child: Container(
-                                                    color: Color.fromARGB(
-                                                        255, 227, 253, 255),
                                                     width: 140,
                                                     child: Center(
                                                         child: Text(
@@ -301,7 +315,7 @@ class HomeView extends GetView<HomeController> {
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color: Colors.blue,
+                                                        color: Colors.white,
                                                       ),
                                                     )),
                                                   ),
@@ -348,19 +362,24 @@ class HomeView extends GetView<HomeController> {
                               child: Column(
                                 children: [
                                   Card(
-                                    color: Color.fromARGB(255, 234, 252, 255),
+                                    elevation: 2,
+                                    shadowColor: Colors.blue,
+                                    color: Color.fromARGB(255, 244, 253, 255),
                                     child: Column(
                                       children: [
                                         ListTile(
                                           title: Text(
                                             'Transaksi hari ini',
-                                            style:
-                                                TextStyle(color: Colors.blue),
+                                            style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 0, 105, 190),
+                                            ),
                                           ),
                                           trailing: Text(
                                             '${snapshot.data!.length} transaksi',
                                             style: TextStyle(
-                                                color: Colors.blue,
+                                                color: Color.fromARGB(
+                                                    255, 0, 105, 190),
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -369,19 +388,22 @@ class HomeView extends GetView<HomeController> {
                                               left: 15, right: 15),
                                           child: Divider(
                                             thickness: 1,
-                                            color: Colors.blue,
+                                            color: Color.fromARGB(
+                                                255, 0, 105, 190),
                                           ),
                                         ),
                                         ListTile(
                                           title: Text(
                                             'Koran hari ini',
-                                            style:
-                                                TextStyle(color: Colors.blue),
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 105, 190)),
                                           ),
                                           trailing: Text(
                                             '${controller.sum.value} pcs',
                                             style: TextStyle(
-                                                color: Colors.blue,
+                                                color: Color.fromARGB(
+                                                    255, 0, 105, 190),
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -439,12 +461,15 @@ class HomeView extends GetView<HomeController> {
                           left: Get.width / 20,
                           right: Get.width / 20,
                           top: 135,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
+                          child: Card(
+                            elevation: 4,
                             child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                               height: 70,
                               width: 300,
-                              color: Colors.white,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(

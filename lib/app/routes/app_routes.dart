@@ -14,6 +14,9 @@ abstract class Routes {
   static const TAMBAH_MITRA_KORAN = _Paths.TAMBAH_MITRA_KORAN;
   static const LIST_KORAN_MASUK = _Paths.LIST_KORAN_MASUK;
   static const LOGIN = _Paths.LOGIN;
+  static const CREATE_PIN = _Paths.CREATE_PIN;
+  static const INPUT_PIN = _Paths.INPUT_PIN;
+  static const MODE_VERIFY = _Paths.MODE_VERIFY;
 }
 
 abstract class _Paths {
@@ -27,4 +30,7 @@ abstract class _Paths {
   static const TAMBAH_MITRA_KORAN = '/tambah-mitra-koran';
   static const LIST_KORAN_MASUK = '/list-koran-masuk';
   static const LOGIN = '/login';
+  static const CREATE_PIN = '/create-pin';
+  static const INPUT_PIN = '/input-pin';
+  static const MODE_VERIFY = '/mode-verify';
 }
