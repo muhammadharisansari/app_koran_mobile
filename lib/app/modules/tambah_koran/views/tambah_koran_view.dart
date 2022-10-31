@@ -10,6 +10,12 @@ import '../controllers/tambah_koran_controller.dart';
 class TambahKoranView extends GetView<TambahKoranController> {
   @override
   Widget build(BuildContext context) {
+    // if (controller.convertTanggal.value != '') {
+    // controller.tanggal.text = DateFormat().add_yMd().format(
+    //       DateTime.parse(controller.convertTanggal.value),
+    //     );
+    // }
+
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -53,38 +59,31 @@ class TambahKoranView extends GetView<TambahKoranController> {
             },
           ),
           SizedBox(height: 20),
-          Obx(() => TextButton(
-                onPressed: () {
-                  showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2010),
-                    lastDate: DateTime(2110),
-                  ).then((value) {
-                    if (value != null) {
-                      return controller.dataTanggal.value = value.toString();
-                    }
-                  });
+          TextField(
+            controller: controller.tanggal,
+            keyboardType: TextInputType.datetime,
+            onTap: () {
+              showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2010),
+                lastDate: DateTime(2110),
+              ).then(
+                (value) {
+                  if (value != null) {
+                    return controller.tanggal.text =
+                        DateFormat('y-M-dd').format(
+                      DateTime.parse(value.toString()),
+                    );
+                  }
                 },
-                child: Row(
-                  children: [
-                    Text(
-                      (controller.dataTanggal.value == '')
-                          ? 'Tanggal'
-                          : DateFormat().add_yMd().format(
-                                DateTime.parse(controller.dataTanggal.string),
-                              ),
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Color.fromARGB(255, 102, 95, 95)),
-                    ),
-                  ],
-                ),
-              )),
-          Divider(
-            thickness: 1,
-            height: 10,
-            color: Colors.black54,
+              );
+            },
+            decoration: InputDecoration(
+              suffixIcon: Icon(Icons.date_range_outlined),
+              // border:  OutlineInputBorder(),
+              labelText: "Tanggal",
+            ),
           ),
           SizedBox(height: 20),
           TextField(

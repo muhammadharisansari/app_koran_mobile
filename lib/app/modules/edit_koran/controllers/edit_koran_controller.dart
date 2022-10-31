@@ -8,9 +8,9 @@ import '../../../routes/app_pages.dart';
 class EditKoranController extends GetxController {
   SetoranProvider setProv = SetoranProvider();
   RxString nameOfKoran = ''.obs;
-  RxString dataTanggal = ''.obs;
-
   TextEditingController jumlahC = TextEditingController();
+  TextEditingController tanggal = TextEditingController();
+
 
   BaseURL baseurl = BaseURL();
 
@@ -22,7 +22,7 @@ class EditKoranController extends GetxController {
     Setoran set = Get.arguments;
 
     if (nameOfKoran.value == '' ||
-        dataTanggal.value == '' ||
+        tanggal.text == '' ||
         jumlahC.text == '') {
       Get.snackbar(
         'KESALAHAN',
@@ -31,7 +31,7 @@ class EditKoranController extends GetxController {
         backgroundColor: Colors.white,
       );
     } else {
-      baseurl.upKoran(id, nameOfKoran.value, dataTanggal.value, jumlahC.text);
+      baseurl.upKoran(id, nameOfKoran.value, tanggal.text, jumlahC.text);
 
       Get.snackbar(
         'BERHASIL',

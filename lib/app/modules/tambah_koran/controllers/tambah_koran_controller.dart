@@ -5,15 +5,15 @@ import '../../../data/providers/urlMaster.dart';
 import '../../../routes/app_pages.dart';
 
 class TambahKoranController extends GetxController {
-  RxString dataTanggal = ''.obs;
   RxString namakoran = ''.obs;
   TextEditingController jumlahC = TextEditingController();
+  TextEditingController tanggal = TextEditingController();
 
   BaseURL baseurl = BaseURL();
 
   void tambahKoran() async {
     if (namakoran.value == '' ||
-        dataTanggal.value == '' ||
+        tanggal.text == '' ||
         jumlahC.text == '') {
       Get.snackbar(
         'KESALAHAN',
@@ -22,7 +22,7 @@ class TambahKoranController extends GetxController {
         backgroundColor: Colors.white,
       );
     } else {
-      baseurl.addKoran(namakoran.value, dataTanggal.value, jumlahC.text);
+      baseurl.addKoran(namakoran.value, tanggal.text, jumlahC.text);
       Get.snackbar(
         'BERHASIL',
         'Data koran berhasil ditambahkan',

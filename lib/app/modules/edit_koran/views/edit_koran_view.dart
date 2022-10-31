@@ -15,7 +15,7 @@ class EditKoranView extends GetView<EditKoranController> {
   Widget build(BuildContext context) {
     controller.jumlahC.text = set.jumlah!;
     controller.nameOfKoran.value = set.namaKoran!;
-    controller.dataTanggal.value = set.tanggal!;
+    controller.tanggal.text = set.tanggal!;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -67,48 +67,31 @@ class EditKoranView extends GetView<EditKoranController> {
             },
           ),
           SizedBox(height: 20),
-          Obx(
-            () => Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2010),
-                      lastDate: DateTime(2110),
-                    ).then(
-                      (value) {
-                        if (value != null) {
-                          controller.dataTanggal.value = value.toString();
-                        } else {
-                          controller.dataTanggal.value = set.tanggal!;
-                        }
-                        // print(value);
-                      },
+          TextField(
+            controller: controller.tanggal,
+            keyboardType: TextInputType.datetime,
+            onTap: () {
+              showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2010),
+                lastDate: DateTime(2110),
+              ).then(
+                (value) {
+                  if (value != null) {
+                    return controller.tanggal.text =
+                        DateFormat('y-M-dd').format(
+                      DateTime.parse(value.toString()),
                     );
-                  },
-                  child: Row(
-                    children: [
-                      Text(
-                        (controller.dataTanggal.value == '')
-                            ? set.tanggal!
-                            : DateFormat().add_yMd().format(
-                                  DateTime.parse(controller.dataTanggal.string),
-                                ),
-                        style: TextStyle(fontSize: 15, color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                  }
+                },
+              );
+            },
+            decoration: InputDecoration(
+              suffixIcon: Icon(Icons.date_range_outlined),
+              // border:  OutlineInputBorder(),
+              labelText: "Tanggal",
             ),
-          ),
-          Divider(
-            thickness: 1,
-            height: 10,
-            color: Colors.black54,
           ),
           SizedBox(height: 20),
           TextField(
