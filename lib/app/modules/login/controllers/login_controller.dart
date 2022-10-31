@@ -27,7 +27,7 @@ class LoginController extends GetxController {
         GoogleSignInAccount? _currentUser = await _googleSignIn.signIn();
         String emaiil = _currentUser!.email;
         //get verify dari restful
-        print('emaiil: $emaiil');
+        print('emaiil: ${emaiil}');
         if (emaiil != null) {
           Future<List<Userf>> coba = userByEmail(emaiil);
           coba.then((value) => value.forEach(

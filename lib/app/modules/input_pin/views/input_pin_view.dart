@@ -12,6 +12,15 @@ class InputPinView extends GetView<InputPinController> {
       appBar: AppBar(
         title: Text('INPUT PIN'),
         centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color.fromARGB(255, 55, 52, 245),
+              // Colors.purpleAccent,
+              Colors.lightBlueAccent,
+            ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+          ),
+        ),
       ),
       body: Center(
         child: Padding(
@@ -24,10 +33,14 @@ class InputPinView extends GetView<InputPinController> {
               ),
               SizedBox(height: 20),
               TextField(
+                autofocus: true,
+                maxLength: 6,
+                obscureText: true,
+                obscuringCharacter: '*',
                 autocorrect: false,
                 style: TextStyle(
                   fontSize: 39,
-                  letterSpacing: 25,
+                  letterSpacing: 31,
                 ),
                 controller: controller.pinC,
                 keyboardType: TextInputType.number,
@@ -36,11 +49,22 @@ class InputPinView extends GetView<InputPinController> {
                 ),
               ),
               SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: () {
-                  controller.cekPin();
-                },
-                child: Text('MASUK'),
+              Container(
+                width: 200,
+                height: 60,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    controller.cekPin();
+                  },
+                  child: Text('MASUK'),
+                ),
               )
             ],
           ),
