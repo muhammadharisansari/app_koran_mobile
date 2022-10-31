@@ -97,12 +97,14 @@ class LoginController extends GetxController {
                   ? isverify.value = 'false'
                   : isverify.value = 'true';
               print('login() : ${isverify.value}');
-              if (element.verify == 'Y') {
+              if (element.verify == 'Y' && box.read('pin') == null) {
                 Get.offAllNamed(Routes.CREATE_PIN);
+              } else if (element.verify == 'Y' && box.read('pin') != null) {
+                Get.offAllNamed(Routes.INPUT_PIN);
               } else if (element.verify == 'N') {
                 Get.offAllNamed(Routes.MODE_VERIFY);
               } else {
-                errorPage();
+                Get.offAllNamed(Routes.CREATE_PIN);
               }
             }));
       } else {
