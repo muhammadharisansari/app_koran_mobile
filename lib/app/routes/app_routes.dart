@@ -17,6 +17,7 @@ abstract class Routes {
   static const CREATE_PIN = _Paths.CREATE_PIN;
   static const INPUT_PIN = _Paths.INPUT_PIN;
   static const MODE_VERIFY = _Paths.MODE_VERIFY;
+  static const CUT_CONNECTION = _Paths.CUT_CONNECTION;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const CREATE_PIN = '/create-pin';
   static const INPUT_PIN = '/input-pin';
   static const MODE_VERIFY = '/mode-verify';
+  static const CUT_CONNECTION = '/cut-connection';
 }

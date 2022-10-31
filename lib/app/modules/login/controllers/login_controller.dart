@@ -1,3 +1,4 @@
+import 'package:app_koran/widgets/errorPage.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,37 +13,43 @@ class LoginController extends GetxController {
   SetoranProvider setProv = SetoranProvider();
   UserCredential? userCredential;
   var isAuth = false.obs;
-  var isverify = false.obs;
+  var isverify = ''.obs;
 
   final box = GetStorage();
   BaseURL baseurl = BaseURL();
 
   Future<void> firstInitialized() async {
     try {
-      GoogleSignInAccount? _currentUser = await _googleSignIn.signIn();
       final isSignIn = await _googleSignIn.isSignedIn();
 
       if (isSignIn) {
         isAuth.value = true;
-      }
-      String emaiil = _currentUser!.email;
-      //get verify dari restful
-      print('emaiil: $emaiil');
-      if (emaiil != null) {
-        Future<List<Userf>> coba = userByEmail(emaiil);
-        coba.then((value) => value.forEach((element) {
-              element.verify != 'Y' || element.verify == null
-                  ? isverify.value = false
-                  : isverify.value = true;
-              print('firstInitialized() : ${isverify.value}');
-              if (isverify.isTrue) {
-                Get.offAllNamed(Routes.CREATE_PIN);
-              } else {
-                Get.offAllNamed(Routes.MODE_VERIFY);
-              }
-            }));
-      } else {
-        Get.offAllNamed(Routes.LOGIN);
+        GoogleSignInAccount? _currentUser = await _googleSignIn.signIn();
+        String emaiil = _currentUser!.email;
+        //get verify dari restful
+        print('emaiil: $emaiil');
+        if (emaiil != null) {
+          Future<List<Userf>> coba = userByEmail(emaiil);
+          coba.then((value) => value.forEach(
+                (element) {
+                  element.verify != 'Y' || element.verify == null
+                      ? isverify.value = 'false'
+                      : isverify.value = 'true';
+                  print('firstInitialized() : ${isverify.value}');
+                  if (element.verify == 'Y' && box.read('pin') == null) {
+                    Get.offAllNamed(Routes.CREATE_PIN);
+                  } else if (element.verify == 'Y' && box.read('pin') != null) {
+                    Get.offAllNamed(Routes.INPUT_PIN);
+                  } else if (element.verify == 'N') {
+                    Get.offAllNamed(Routes.MODE_VERIFY);
+                  } else {
+                    Get.offAllNamed(Routes.CREATE_PIN);
+                  }
+                },
+              ));
+        } else {
+          Get.offAllNamed(Routes.LOGIN);
+        }
       }
     } catch (e) {
       print(e);
@@ -87,15 +94,15 @@ class LoginController extends GetxController {
         Future<List<Userf>> coba = userByEmail(_currentUser.email);
         coba.then((value) => value.forEach((element) {
               element.verify != 'Y' || element.verify == null
-                  ? isverify.value = false
-                  : isverify.value = true;
+                  ? isverify.value = 'false'
+                  : isverify.value = 'true';
               print('login() : ${isverify.value}');
-              if (isverify.isTrue) {
+              if (element.verify == 'Y') {
                 Get.offAllNamed(Routes.CREATE_PIN);
-              } else if (isverify.isFalse) {
+              } else if (element.verify == 'N') {
                 Get.offAllNamed(Routes.MODE_VERIFY);
               } else {
-                Get.offAllNamed(Routes.LOGIN);
+                errorPage();
               }
             }));
       } else {

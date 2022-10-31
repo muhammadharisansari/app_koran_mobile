@@ -44,11 +44,13 @@ class MyApp extends StatelessWidget {
                   title: "Data Koran",
                   initialRoute: loginC.isAuth.isFalse
                       ? Routes.LOGIN
-                      : loginC.isverify.isFalse
-                          ? Routes.MODE_VERIFY
-                          : box.read('pin') == null
-                              ? Routes.CREATE_PIN
-                              : Routes.INPUT_PIN,
+                      : loginC.isverify.value == ''
+                          ? Routes.CUT_CONNECTION
+                          : loginC.isverify.value == 'false'
+                              ? Routes.MODE_VERIFY
+                              : box.read('pin') == null
+                                  ? Routes.CREATE_PIN
+                                  : Routes.INPUT_PIN,
                   getPages: AppPages.routes,
                 );
               }
