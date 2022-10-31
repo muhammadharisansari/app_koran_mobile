@@ -10,12 +10,7 @@ import '../controllers/tambah_koran_controller.dart';
 class TambahKoranView extends GetView<TambahKoranController> {
   @override
   Widget build(BuildContext context) {
-    // if (controller.convertTanggal.value != '') {
-    // controller.tanggal.text = DateFormat().add_yMd().format(
-    //       DateTime.parse(controller.convertTanggal.value),
-    //     );
-    // }
-
+String tahun = DateFormat().add_y().format(DateTime.now());
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -67,7 +62,7 @@ class TambahKoranView extends GetView<TambahKoranController> {
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime(2010),
-                lastDate: DateTime(2110),
+                lastDate: DateTime(int.parse(tahun) + 1),
               ).then(
                 (value) {
                   if (value != null) {

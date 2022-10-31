@@ -13,6 +13,7 @@ class EditKoranView extends GetView<EditKoranController> {
   Setoran set = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    String tahun = DateFormat().add_y().format(DateTime.now());
     controller.jumlahC.text = set.jumlah!;
     controller.nameOfKoran.value = set.namaKoran!;
     controller.tanggal.text = set.tanggal!;
@@ -75,7 +76,7 @@ class EditKoranView extends GetView<EditKoranController> {
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime(2010),
-                lastDate: DateTime(2110),
+                lastDate: DateTime(int.parse(tahun) + 1),
               ).then(
                 (value) {
                   if (value != null) {
