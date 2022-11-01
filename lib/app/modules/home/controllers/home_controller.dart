@@ -25,12 +25,10 @@ class HomeController extends GetxController {
   Future<Iterable<Setoran>> getWhereSetoran() async {
     sum.value = 0;
     final data = await setoranProv.getAllSetoran();
-    String tahun = DateFormat().add_y().format(DateTime.now());
-    String bulan = DateFormat().add_M().format(DateTime.now());
-    String tanggal = DateFormat().add_d().format(DateTime.now());
+    String today = DateFormat('y-M-dd').format(DateTime.now());
 
-    Iterable<Setoran> hasil = data.where(
-        (element) => element.tanggal!.contains('${tahun}-${bulan}-${tanggal}'));
+    Iterable<Setoran> hasil =
+        data.where((element) => element.tanggal!.contains('$today'));
     hasil.forEach((element) => sum += int.parse(element.jumlah!));
 
     if (reload.isTrue) {

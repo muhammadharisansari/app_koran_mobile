@@ -90,7 +90,7 @@ class ListKoranMasukView extends GetView<ListKoranMasukController> {
                                 Obx(() => Text(
                                       (controller.filterBulan.value != '')
                                           ? '${DateFormat('MMMM y').format(DateTime.parse(controller.filterBulan.value))}'
-                                          : '${controller.last.value}   s/d   ${controller.first.value}',
+                                          : '${controller.last.value} - ${controller.first.value}',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
